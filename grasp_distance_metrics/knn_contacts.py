@@ -9,10 +9,7 @@ from sklearn.neighbors import NearestNeighbors
 import curvox.np_conversions
 
 
-def contact_distance(c1_filename, c2_filename, verbose=False):
-
-    c1 = curvox.np_conversions.pcd_to_np(c1_filename)
-    c2 = curvox.np_conversions.pcd_to_np(c2_filename)
+def contact_distance(c1, c2, verbose=False):
 
     nbrs = NearestNeighbors(n_neighbors=1).fit(c1)
     nbrs.kneighbors(c2)
@@ -26,8 +23,6 @@ def contact_distance(c1_filename, c2_filename, verbose=False):
     total_distance = c1_mean_distance + c2_mean_distance
 
     if verbose:
-        print "c1_filename: " + str(c1_filename)
-        print "c2_filename: " + str(c2_filename)
         print "c1.shape: " + str(c1.shape)
         print "c2.shape: " + str(c2.shape)
         print "c1_mean_distance: " + str(c1_mean_distance)
@@ -62,7 +57,10 @@ def main():
 
     args = parser.parse_args()
 
-    print contact_distance(args.c1, args.c2, args.verbose)
+    c1 = curvox.np_conversions.pcd_to_np(args.c1)
+    c2 = curvox.np_conversions.pcd_to_np(args.c2)
+
+    print contact_distance(c1, c2, args.verbose)
 
 
 if __name__ == "__main__":
