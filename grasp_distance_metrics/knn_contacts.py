@@ -1,4 +1,7 @@
 # coding: utf-8
+
+__all__ = ['contact_distance']
+
 import argparse
 import numpy as np
 from sklearn.neighbors import NearestNeighbors
@@ -34,8 +37,7 @@ def contact_distance(c1_filename, c2_filename, verbose=False):
     return total_distance
 
 
-if __name__ == "__main__":
-
+def main():
     parser = argparse.ArgumentParser(
         description=
         """This script takes as input, two pcd filepaths representing contact
@@ -61,3 +63,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     print contact_distance(args.c1, args.c2, args.verbose)
+
+
+if __name__ == "__main__":
+    main()
